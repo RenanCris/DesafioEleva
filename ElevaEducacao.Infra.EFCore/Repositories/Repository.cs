@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ElevaEducacao.Infra.EFCore.Repositories
@@ -24,11 +23,11 @@ namespace ElevaEducacao.Infra.EFCore.Repositories
         where TEntity : Entity
     {
         protected DbSet<TEntity> DbSet;
-        private readonly ApplicationDbContext _context;
+        protected readonly ApplicationDbContext Context;
         
         protected RepositoryBase(ApplicationDbContext context) : base(context)
         {
-            _context = context;
+            Context = context;
             DbSet = context.Set<TEntity>();
         }
 
@@ -54,13 +53,13 @@ namespace ElevaEducacao.Infra.EFCore.Repositories
             return Task.CompletedTask;
         }
 
-        public virtual async Task Excluir(long id)
+        public virtual async Task Excluir(int id)
         {
             var obj = await DbSet.FindAsync(id);
             DbSet.Remove(obj);
         }
 
-        public virtual async Task ExcluirPermanentemente(long id)
+        public virtual async Task ExcluirPermanentemente(int id)
         {
             var obj = await DbSet.FindAsync(id);
             await ExcluirPermanentemente(obj);
@@ -68,19 +67,24 @@ namespace ElevaEducacao.Infra.EFCore.Repositories
 
         public virtual Task ExcluirPermanentemente(TEntity obj)
         {
-            _context.Remove(obj);
+            Context.Remove(obj);
             return Task.CompletedTask;
         }
 
         public virtual Task ExcluirPermanentemente(IList<TEntity> list)
         {
-            _context.RemoveRange(list);
+            Context.RemoveRange(list);
             return Task.CompletedTask;
         }
 
-        public virtual async Task<TEntity> ObterPorId(long id)
+        public virtual async Task<TEntity> ObterPorId(int id)
         {
             return await DbSet.FindAsync(id);
+        }
+
+        public virtual async Task<bool> Existe(int id)
+        {
+            return await DbSet.AnyAsync(x => x.Id == id);
         }
 
         public virtual Task<List<TEntity>> ObterTodos()
@@ -97,7 +101,7 @@ namespace ElevaEducacao.Infra.EFCore.Repositories
 
         public void Dispose()
         {
-            _context.Dispose();
+            Context.Dispose();
         }
     }
 }

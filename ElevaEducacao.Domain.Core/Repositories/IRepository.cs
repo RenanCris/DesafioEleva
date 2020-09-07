@@ -18,13 +18,14 @@ namespace ElevaEducacao.Domain.Core.Repositories
         Task Criar(IList<TEntity> list);
         Task Atualizar(TEntity obj);
         Task Atualizar(IList<TEntity> list);
-        Task Excluir(long id);
-        Task ExcluirPermanentemente(long id);
+        Task Excluir(int id);
+        Task ExcluirPermanentemente(int id);
         Task ExcluirPermanentemente(TEntity obj);
         Task ExcluirPermanentemente(IList<TEntity> list);
-        Task<TEntity> ObterPorId(long id);
+        Task<TEntity> ObterPorId(int id);
         Task<List<TEntity>> ObterTodos();
         Task<List<TEntity>> Buscar(Expression<Func<TEntity, bool>> condicao);
+        Task<bool> Existe(int id);
 
     }
 }

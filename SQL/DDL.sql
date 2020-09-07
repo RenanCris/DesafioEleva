@@ -26,23 +26,23 @@ CREATE TABLE `Cidade` (
 
 CREATE TABLE `Endereco` (
     `Id` int NOT NULL AUTO_INCREMENT,
-    `CidadeId` int NOT NULL,
+    `IdCidade` int NOT NULL,
     `Numero` longtext CHARACTER SET utf8mb4 NULL,
     `Complemento` longtext CHARACTER SET utf8mb4 NULL,
     `Descricao` longtext CHARACTER SET utf8mb4 NULL,
-    `BairroId` int NOT NULL,
+    `IdBairro` int NOT NULL,
     CONSTRAINT `PK_Endereco` PRIMARY KEY (`Id`),
-    CONSTRAINT `FK_Endereco_Bairro_BairroId` FOREIGN KEY (`BairroId`) REFERENCES `Bairro` (`Id`) ON DELETE CASCADE,
-    CONSTRAINT `FK_Endereco_Cidade_CidadeId` FOREIGN KEY (`CidadeId`) REFERENCES `Cidade` (`Id`) ON DELETE CASCADE
+    CONSTRAINT `FK_Endereco_Bairro_BairroId` FOREIGN KEY (`IdBairro`) REFERENCES `Bairro` (`Id`) ON DELETE CASCADE,
+    CONSTRAINT `FK_Endereco_Cidade_CidadeId` FOREIGN KEY (`IdCidade`) REFERENCES `Cidade` (`Id`) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX `IX_Bairro_Descricao` ON `Bairro` (`Descricao`);
 
 CREATE INDEX `IX_Cidade_UFId` ON `Cidade` (`UFId`);
 
-CREATE INDEX `IX_Endereco_BairroId` ON `Endereco` (`BairroId`);
+CREATE INDEX `IX_Endereco_BairroId` ON `Endereco` (`IdBairro`);
 
-CREATE INDEX `IX_Endereco_CidadeId` ON `Endereco` (`CidadeId`);
+CREATE INDEX `IX_Endereco_CidadeId` ON `Endereco` (`IdCidade`);
 
 CREATE UNIQUE INDEX `IX_UF_Descricao` ON `UF` (`Descricao`);
 

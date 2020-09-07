@@ -50,6 +50,9 @@ namespace ElevaEducacao
 
             services.AddMvc();
 
+            services.AddControllers(options => { options.Filters.Add<ResponseValidationFilter>(); })
+                .AddNewtonsoftJson();
+
             services.AddHealthChecks();
             services.AddMediatr(assemblies);
 

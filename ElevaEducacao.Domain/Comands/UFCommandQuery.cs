@@ -1,4 +1,5 @@
-﻿using ElevaEducacao.Domain.Core.Commands;
+﻿using AutoMapper;
+using ElevaEducacao.Domain.Core.Commands;
 using ElevaEducacao.Domain.Core.Entities;
 using ElevaEducacao.Domain.Core.Handlers;
 using ElevaEducacao.Domain.Core.Interfaces;
@@ -23,7 +24,8 @@ namespace ElevaEducacao.Domain.Comands
         private readonly IUFRepository _uFRepository;
         public UFCommandHandlerQuery(INotificationContext notificationContext
             , IUnitOfWork uow
-            , IUFRepository uFRepository) : base(notificationContext, uow)
+            , IUFRepository uFRepository
+            , IMapper mapper) : base(notificationContext, uow, mapper)
         {
             _uFRepository = uFRepository;
         }

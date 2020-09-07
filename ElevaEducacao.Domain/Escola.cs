@@ -16,6 +16,11 @@ namespace ElevaEducacao.Domain
         public CategoriaAdministrativa CategoriaAdministrativa { get; set; }
         public TipoLocalizacao TipoLocalizacao { get; set; }
         public List<Turma> Turmas { get; set; }
+
+        public Escola()
+        {
+           
+        }
     }
 
     

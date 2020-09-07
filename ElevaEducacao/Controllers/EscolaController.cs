@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ElevaEducacao.Domain;
+using ElevaEducacao.Domain.Comands;
 using ElevaEducacao.Helper;
+using ElevaEducacao.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +36,31 @@ namespace ElevaEducacao.Controllers
         public IActionResult ObterCategoriaAdministrativa()
         {
             return Ok(ObjetoEnum.ObterObjetoEnum<CategoriaAdministrativa>());
+        }
+
+        [HttpGet("todas")]
+        public async Task<IActionResult> ObterTodas()
+        {
+            var _result = await Mediator.Send(new EscolaCommandQuery());
+            return Ok(Mapper.Map<List<EscolaSaidaViewModel>>(_result));
+        }
+
+        [HttpPost()]
+        public async Task<IActionResult> CadastrarEscola([FromBody] EscolaEntradaViewModel escolaEntradaViewModel)
+        {
+            var _cmd = Mapper.Map<AdicionarEscolaCommand>(escolaEntradaViewModel);
+            var _result = await Mediator.Send(_cmd);
+
+            return Ok();
+        }
+
+        [HttpPut()]
+        public async Task<IActionResult> AlterarEscola([FromBody] EscolaEntradaIdViewModel escolaEntradaIdViewModel)
+        {
+            var _cmd = Mapper.Map<AdicionarEscolaCommand>(escolaEntradaIdViewModel);
+            var _result = await Mediator.Send(_cmd);
+
+            return Ok();
         }
     }
 }

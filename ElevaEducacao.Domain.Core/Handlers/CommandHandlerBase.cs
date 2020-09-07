@@ -1,4 +1,5 @@
-﻿using ElevaEducacao.Domain.Core.Entities;
+﻿using AutoMapper;
+using ElevaEducacao.Domain.Core.Entities;
 using ElevaEducacao.Domain.Core.Interfaces;
 using ElevaEducacao.Infra.CrossCutting.NotificationPattern;
 using MediatR;
@@ -12,15 +13,18 @@ namespace ElevaEducacao.Domain.Core.Handlers
     public abstract class CommandHandlerBase<TUnitOfWork>
         where TUnitOfWork : IUnitOfWork
     {
-        private readonly TUnitOfWork _uow;
+        protected readonly TUnitOfWork Uow;
         private readonly INotificationContext _notificationContext;
-       
+        protected readonly IMapper Mapper;
+
         protected CommandHandlerBase(
             INotificationContext notificationContext,
-            TUnitOfWork uow)
+            TUnitOfWork uow,
+            IMapper mapper)
         {
-            _uow = uow;
+            Uow = uow;
             _notificationContext = notificationContext;
+            Mapper = mapper;
         }
 
         protected Unit Finish() => Unit.Value;
@@ -66,7 +70,7 @@ namespace ElevaEducacao.Domain.Core.Handlers
         protected async Task<bool> Commit()
         {
             if (_notificationContext.HasNotifications) return false;
-            if (await _uow.CommitAsync())
+            if (await Uow.CommitAsync())
                 return true;
 
             _notificationContext.AddNotification("Error ao comitar");

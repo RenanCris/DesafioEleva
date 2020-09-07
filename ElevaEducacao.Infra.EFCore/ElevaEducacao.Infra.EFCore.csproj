@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200906230711_MapEscolaAgregados.cs" />
     <Compile Remove="Migrations\20200906230711_MapEscolaAgregados.Designer.cs" />
+    <Compile Remove="Migrations\20200907161836_AjusteMapEndereco.cs" />
+    <Compile Remove="Migrations\20200907161836_AjusteMapEndereco.Designer.cs" />
+    <Compile Remove="Migrations\20200907162307_AjusteMapEndereco.cs" />
+    <Compile Remove="Migrations\20200907162307_AjusteMapEndereco.Designer.cs" />
+    <Compile Remove="Migrations\20200907162533_AjusteMapEndereco.cs" />
+    <Compile Remove="Migrations\20200907162533_AjusteMapEndereco.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

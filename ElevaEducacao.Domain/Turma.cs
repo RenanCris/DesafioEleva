@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace ElevaEducacao.Domain
 {
     public class Turma : Entity {
+
         public string CodigoPesquisa { get; set; }
         public int IdEscola { get; set; }
         public Escola Escola { get; set; }
@@ -13,5 +14,10 @@ namespace ElevaEducacao.Domain
         public int TotalVagasDisponiveis { get => this.TotalVagas - this.TotalVagasOcupadas; }
         public virtual List<TurmaDisciplina> Disciplinas { get; set; }
 
+    }
+
+    public class TurmaConst {
+        public const int MinimoHoras = 1;
+        public const int MinimoVagas = 1;
     }
 }

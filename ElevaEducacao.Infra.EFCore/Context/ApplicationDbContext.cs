@@ -1,4 +1,5 @@
-﻿using ElevaEducacao.Infra.EFCore.Extensions;
+﻿using ElevaEducacao.Domain;
+using ElevaEducacao.Infra.EFCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,9 @@ namespace ElevaEducacao.Infra.EFCore.Context
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<Endereco> Endereco { get; set; }
+        public DbSet<Escola> Escola { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 

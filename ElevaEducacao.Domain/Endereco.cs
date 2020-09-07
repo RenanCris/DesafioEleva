@@ -4,6 +4,8 @@ namespace ElevaEducacao.Domain
 {
     public class Endereco : Entity
     {
+        public int IdCidade { get; set; }
+        public int IdBairro { get; set; }
         public Cidade Cidade { get; set; }
         public string Numero { get; set; }
         public string Complemento { get; set; }

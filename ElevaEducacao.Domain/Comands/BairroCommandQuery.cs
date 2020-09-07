@@ -1,4 +1,5 @@
-﻿using ElevaEducacao.Domain.Core.Commands;
+﻿using AutoMapper;
+using ElevaEducacao.Domain.Core.Commands;
 using ElevaEducacao.Domain.Core.Handlers;
 using ElevaEducacao.Domain.Core.Interfaces;
 using ElevaEducacao.Domain.Interfaces.Repository;
@@ -19,7 +20,8 @@ namespace ElevaEducacao.Domain.Comands
         private readonly IBairroRepository _repo;
         public BairroCommandHandlerQuery(INotificationContext notificationContext
             , IUnitOfWork uow
-            , IBairroRepository repo) : base(notificationContext, uow)
+            , IBairroRepository repo
+            , IMapper mapper) : base(notificationContext, uow, mapper)
         {
             _repo = repo;
         }
