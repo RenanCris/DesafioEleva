@@ -7,11 +7,10 @@ namespace ElevaEducacao.Domain.Validator
     {
         public override void ToValidate()
         {
-            RuleFor(x => x.DDD).LessThanOrEqualTo(0)
+            RuleFor(x => x.DDD).NotEmpty()
                     .WithMessage("Indique um DDD valido.");
 
-            RuleFor(x => x.Numero).LessThanOrEqualTo(7)
-                    .GreaterThanOrEqualTo(10)
+            RuleFor(x => x.Numero).NotEmpty()
                     .WithMessage("Indique um número válido.");
         }
     }

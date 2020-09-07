@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 namespace ElevaEducacao.Domain.Comands
 {
     public class AdicionarEscolaCommand : ICommandMapped<Escola> {
+
+        public string Nome { get; set; }
         public Endereco Endereco { get; set; }
         public bool ConvenioPoderPublico { get; set; }
         public bool AtendeEducacaoEspecial { get; set; }

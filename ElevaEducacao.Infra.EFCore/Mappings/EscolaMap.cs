@@ -9,6 +9,7 @@ namespace ElevaEducacao.Infra.EFCore.Mappings
         {
             builder.Property(x => x.ConvenioPoderPublico);
             builder.Property(x => x.AtendeEducacaoEspecial);
+            builder.Property(x => x.Nome).IsRequired();
 
             builder
                .Property(c => c.CategoriaAdministrativa)

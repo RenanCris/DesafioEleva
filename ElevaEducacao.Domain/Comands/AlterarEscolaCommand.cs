@@ -36,8 +36,8 @@ namespace ElevaEducacao.Domain.Comands
 
         public async Task<Unit> Handle(AlterarEscolaCommand request, CancellationToken cancellationToken)
         {
-            var _escolaPorId = _repo.ObterPorId(request.Id);
-            var _escola = await Mapper.Map(request, _escolaPorId);
+            var _escolaPorId = await _repo.ObterPorId(request.Id);
+            var _escola = Mapper.Map(request, _escolaPorId);
 
             _escola.Endereco.Cidade = await _repoCidade.ObterPorId(_escola.Endereco.IdCidade);
             _escola.Endereco.Bairro = await _repoBairro.ObterPorId(_escola.Endereco.IdBairro);

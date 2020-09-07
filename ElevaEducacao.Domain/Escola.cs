@@ -7,6 +7,7 @@ namespace ElevaEducacao.Domain
 {
     public class Escola : Entity
     {
+        public string Nome { get; set; }
         public Endereco Endereco { get; set; }
         public bool ConvenioPoderPublico { get; set; }
         public bool AtendeEducacaoEspecial { get; set; }

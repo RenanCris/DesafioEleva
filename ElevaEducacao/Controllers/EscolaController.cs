@@ -57,7 +57,7 @@ namespace ElevaEducacao.Controllers
         [HttpPut()]
         public async Task<IActionResult> AlterarEscola([FromBody] EscolaEntradaIdViewModel escolaEntradaIdViewModel)
         {
-            var _cmd = Mapper.Map<AdicionarEscolaCommand>(escolaEntradaIdViewModel);
+            var _cmd = Mapper.Map<AlterarEscolaCommand>(escolaEntradaIdViewModel);
             var _result = await Mediator.Send(_cmd);
 
             return Ok();

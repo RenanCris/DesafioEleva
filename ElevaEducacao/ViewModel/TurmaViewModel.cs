@@ -20,6 +20,7 @@ namespace ElevaEducacao.ViewModel
     {
         public int Id { get; set; }
         public int TotalVagasDisponiveis { get; set; }
+        public EscolaSaidaViewModel Escola { get; set; }
     }
 
 }

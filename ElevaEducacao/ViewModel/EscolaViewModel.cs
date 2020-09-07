@@ -6,6 +6,7 @@ namespace ElevaEducacao.ViewModel
 {
     public class EscolaEntradaViewModel : IViewModel<Escola>
     {
+        public string Nome { get; set; }
         public bool ConvenioPoderPublico { get; set; }
         public bool AtendeEducacaoEspecial { get; set; }
         public CategoriaAdministrativa CategoriaAdministrativa { get; set; }
@@ -22,6 +23,8 @@ namespace ElevaEducacao.ViewModel
 
     public class EscolaSaidaViewModel : IViewModel<Escola>
     {
+        public int Id { get; set; }
+        public string Nome { get; set; }
         public bool ConvenioPoderPublico { get; set; }
         public bool AtendeEducacaoEspecial { get; set; }
         public CategoriaAdministrativa CategoriaAdministrativa { get; set; }

@@ -11,7 +11,7 @@ namespace ElevaEducacao.Infra.EFCore.Context
     {
         public DbSet<Endereco> Endereco { get; set; }
         public DbSet<Escola> Escola { get; set; }
-
+        public DbSet<Turma> Turma { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 

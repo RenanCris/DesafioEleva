@@ -11,6 +11,11 @@ namespace ElevaEducacao.Domain.Validator
     {
         public override void ToValidate()
         {
+            RuleFor(x => x.Nome).NotEmpty()
+                    .WithMessage("Nome não informado")
+                    .MaximumLength(255)
+                    .WithMessage("Tamanho máximo atingido");
+
             RuleFor(x=> x).Must(ValidarIndicacaoTelefone)
                     .WithMessage("Indique algum telefone.");
 
