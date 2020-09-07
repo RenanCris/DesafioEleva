@@ -22,6 +22,11 @@ namespace ElevaEducacao.Domain.Core.Commands
     public interface ICommandMapped<TEntity> : ICommandMapped<TEntity, int>
         where TEntity : IEntity<int>
     {
+    }
 
+    public interface ICommandMappedId<TEntity> : ICommandMapped<TEntity, int>
+       where TEntity : IEntity<int>
+    {
+        public int Id { get; set; }
     }
 }

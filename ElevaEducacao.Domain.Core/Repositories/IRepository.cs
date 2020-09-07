@@ -1,6 +1,7 @@
 ﻿using ElevaEducacao.Domain.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,75 +9,22 @@ namespace ElevaEducacao.Domain.Core.Repositories
 {
     public interface IRepository : IDisposable
     {
-
     }
 
-    public interface ICreatableRepository<TEntity, in TPrimaryKey> : IRepository
-       where TEntity : IEntity<TPrimaryKey>
+    public interface IRepository<TEntity> : IRepository 
+        where TEntity : Entity
     {
-        Task AddAsync(TEntity entity);
-        Task AddAsync(IList<TEntity> entities);
-    }
-
-    public interface ICreatableRepository<TEntity> : ICreatableRepository<TEntity, int>
-        where TEntity : IEntity<int>
-    {
-
-    }
-
-    public interface IUpdatableRepository<TEntity, in TPrimaryKey> : IRepository
-        where TEntity : IEntity<TPrimaryKey>
-    {
-        Task UpdateAsync(TEntity entity);
-        Task UpdateAsync(IList<TEntity> entities);
-    }
-
-    public interface IUpdatableRepository<TEntity> : IUpdatableRepository<TEntity, int>
-        where TEntity : IEntity<int>
-    {
-
-    }
-
-    public interface IFindableRepository<TEntity, in TPrimaryKey> : IRepository
-        where TEntity : IEntity<TPrimaryKey>
-    {
-        Task<TEntity> FindByIdAsync(TPrimaryKey id);
-        Task<List<TEntity>> FindAllAsync();
-    }
-
-    public interface IFindableRepository<TEntity> : IFindableRepository<TEntity, int>
-        where TEntity : IEntity<int>
-    {
-
-    }
-
-    public interface IDeletableRepository<TEntity, in TPrimaryKey> : IRepository
-       where TEntity : IEntity<TPrimaryKey>
-    {
-        Task DeleteAsync(TPrimaryKey id);
-        Task DeleteAsync(TEntity entity);
-        Task DeleteAsync(IList<TEntity> entities);
-    }
-
-    public interface IDeletableRepository<TEntity> : IDeletableRepository<TEntity, int>
-        where TEntity : IEntity<int>
-    {
-
-    }
-
-    public interface ICrudRepository<TEntity, in TPrimaryKey> :
-       ICreatableRepository<TEntity, TPrimaryKey>,
-       IUpdatableRepository<TEntity, TPrimaryKey>,
-       IDeletableRepository<TEntity, TPrimaryKey>,
-       IFindableRepository<TEntity, TPrimaryKey>
-       where TEntity : IEntity<TPrimaryKey>
-    {
-
-    }
-
-    public interface ICrudRepository<TEntity> : ICrudRepository<TEntity, int>
-        where TEntity : IEntity<int>
-    {
+        Task Criar(TEntity obj);
+        Task Criar(IList<TEntity> list);
+        Task Atualizar(TEntity obj);
+        Task Atualizar(IList<TEntity> list);
+        Task Excluir(long id);
+        Task ExcluirPermanentemente(long id);
+        Task ExcluirPermanentemente(TEntity obj);
+        Task ExcluirPermanentemente(IList<TEntity> list);
+        Task<TEntity> ObterPorId(long id);
+        Task<List<TEntity>> ObterTodos();
+        Task<List<TEntity>> Buscar(Expression<Func<TEntity, bool>> condicao);
 
     }
 }

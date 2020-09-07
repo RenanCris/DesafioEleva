@@ -36,5 +36,55 @@ namespace ElevaEducacao.Controllers
         {
             _domainNotificationContext.AddNotification(mensagem);
         }
+
+        protected new IActionResult Response(object data = null)
+        {
+            if (!_domainNotificationContext.HasNotifications)
+                return base.Ok(FormatSuccessResponse(data));
+
+            return base.BadRequest(FormatFailResponse(_domainNotificationContext.Notifications.Select(x => x.Message).ToArray()));
+        }
+
+        protected IActionResult DirectOk(object data = null)
+        {
+            return base.Ok(data);
+        }
+        protected new IActionResult Ok(object data = null)
+        {
+            return base.Ok(FormatSuccessResponse(data));
+        }
+        protected IActionResult Ok<T>(object data = null)
+        {
+            return base.Ok(FormatSuccessResponse<T>(data));
+        }
+        protected new IActionResult BadRequest()
+        {
+            return base.BadRequest(FormatFailResponse(_domainNotificationContext.Notifications.Select(x => x.Message).ToArray()));
+        }
+
+        private static object FormatSuccessResponse(object data)
+        {
+            return new
+            {
+                success = true,
+                data = data
+            };
+        }
+        private object FormatSuccessResponse<T>(object data)
+        {
+            return new
+            {
+                success = true,
+                data = _mapper.Map<T>(data)
+            };
+        }
+        private static object FormatFailResponse(string[] errors)
+        {
+            return new
+            {
+                success = false,
+                errors = errors
+            };
+        }
     }
 }

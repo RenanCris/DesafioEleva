@@ -12,7 +12,7 @@ namespace ElevaEducacao.Infra.CrossCutting.MediatR
         public static IServiceCollection AddMediatr(this IServiceCollection services, params Assembly[] assemblies)
         {
             services.AddMediatR(assemblies);
-            services.AddSingleton(new MediatrAssemblies(assemblies));
+            services.AddSingleton(new MediatrAssemblies(assemblies).Assemblies);
             return services;
         }
 

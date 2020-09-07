@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ElevaEducacao.Domain.Core\ElevaEducacao.Domain.Core.csproj" />
+    <ProjectReference Include="..\ElevaEducacao.Domain\ElevaEducacao.Domain.csproj" />
     <ProjectReference Include="..\ElevaEducacao.Infra.CrossCutting.Ioc\ElevaEducacao.Infra.CrossCutting.Ioc.csproj" />
     <ProjectReference Include="..\ElevaEducacao.Infra.CrossCutting\ElevaEducacao.Infra.CrossCutting.csproj" />
     <ProjectReference Include="..\ElevaEducacao.Infra.EFCore\ElevaEducacao.Infra.EFCore.csproj" />

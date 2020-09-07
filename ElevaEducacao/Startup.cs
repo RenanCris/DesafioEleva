@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using ElevaEducacao.Extension;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,11 +9,34 @@ using Microsoft.Extensions.Hosting;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using ElevaEducacao.Infra.CrossCutting.MediatR;
 using ElevaEducacao.Infra.CrossCutting;
+using Microsoft.Extensions.Configuration;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using ElevaEducacao.Infra.EFCore.Context;
+using ElevaEducacao.Infra.EFCore.Extensions;
+using ElevaEducacao.Domain;
 
 namespace ElevaEducacao
 {
     public class Startup
     {
+        public IConfigurationRoot Configuration { get; }
+
+        [Obsolete]
+        private readonly IHostingEnvironment _environment;
+
+        [Obsolete]
+        public Startup(IHostingEnvironment env)
+        {
+            _environment = env;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
+        }
         public void ConfigureServices(IServiceCollection services)
         {
             var assemblies = new[]
@@ -23,6 +44,8 @@ namespace ElevaEducacao
                 typeof(Startup).Assembly,
                 typeof(Domain.Core.Entities.Entity).Assembly,
                 typeof(Infra.EFCore.Extensions.CustomDbContextOptionsBuilder).Assembly,
+                typeof(MediatrAssemblies).Assembly,
+                typeof(Escola).Assembly,
             };
 
             services.AddMvc();
@@ -42,8 +65,8 @@ namespace ElevaEducacao
             {
                 settings.UseStringTrimmingTransformers = true;
             }, assemblies);
-
-            Bootstrapper.RegisterServicesBasedOn<Guid>(services, assemblies);
+            
+           Bootstrapper.RegisterServicesBasedOn<Guid>(services, Configuration, assemblies);
 
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,7 +86,7 @@ namespace ElevaEducacao
             });
 
             app.UseRouting();
-            app.UseExceptionHandlers();
+            app.UseExceptionHandlers("Houve algum erro ao executar a aplicação");
 
             app.UseEndpoints(endpoints =>
             {
