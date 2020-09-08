@@ -16,5 +16,12 @@ namespace ElevaEducacao.Controllers
             var _retorno = await Mediator.Send(new CidadeCommandQuery());
             return Ok(Mapper.Map<List<CidadeSaidaViewModel>>(_retorno));
         }
+
+        [HttpGet("uf/{id}")]
+        public async Task<IActionResult> ObterTodasPorUF(int id)
+        {
+            var _retorno = await Mediator.Send(new CidadePorUFCommandQuery() { IdUF = id });
+            return Ok(Mapper.Map<List<CidadeSaidaViewModel>>(_retorno));
+        }
     }
 }
