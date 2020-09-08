@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ElevaEducacao.Infra.EFCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200906231142_MapEscolaAgregados")]
-    partial class MapEscolaAgregados
+    [Migration("20200908171630_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,12 +83,6 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("BairroId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CidadeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Complemento")
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
                         .IsUnicode(false);
@@ -96,6 +90,12 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
                         .IsUnicode(false);
+
+                    b.Property<int>("IdBairro")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCidade")
+                        .HasColumnType("int");
 
                     b.Property<int>("IdEscola")
                         .HasColumnType("int");
@@ -106,9 +106,9 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BairroId");
+                    b.HasIndex("IdBairro");
 
-                    b.HasIndex("CidadeId");
+                    b.HasIndex("IdCidade");
 
                     b.HasIndex("IdEscola")
                         .IsUnique();
@@ -131,6 +131,11 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
                     b.Property<bool>("ConvenioPoderPublico")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .IsUnicode(false);
+
                     b.Property<int>("TipoLocalizacao")
                         .HasColumnType("int");
 
@@ -148,7 +153,7 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
                     b.Property<DateTime>("Data")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2020, 9, 6, 20, 11, 41, 804, DateTimeKind.Local).AddTicks(7107));
+                        .HasDefaultValue(new DateTime(2020, 9, 8, 14, 16, 30, 319, DateTimeKind.Local).AddTicks(4005));
 
                     b.Property<int>("IdEscola")
                         .HasColumnType("int");
@@ -165,17 +170,19 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
 
             modelBuilder.Entity("ElevaEducacao.Domain.Modalidade", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<int>("IdEscola")
                         .HasColumnType("int");
 
                     b.Property<int>("IdModalidadeEnsino")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("IdEscola", "IdModalidadeEnsino");
+                    b.HasIndex("IdEscola");
 
                     b.ToTable("Modalidade");
                 });
@@ -237,6 +244,10 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
 
             modelBuilder.Entity("ElevaEducacao.Domain.TurmaDisciplina", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<int>("IdTurma")
                         .HasColumnType("int");
 
@@ -249,16 +260,14 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
                     b.Property<DateTime>("DataVinculacao")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasKey("IdTurma", "IdDisciplina");
+                    b.HasKey("Id", "IdTurma", "IdDisciplina");
 
                     b.HasIndex("IdDisciplina");
+
+                    b.HasIndex("IdTurma");
 
                     b.ToTable("TurmaDisciplina");
                 });
@@ -295,13 +304,13 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
                 {
                     b.HasOne("ElevaEducacao.Domain.Bairro", "Bairro")
                         .WithMany("Enderecos")
-                        .HasForeignKey("BairroId")
+                        .HasForeignKey("IdBairro")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ElevaEducacao.Domain.Cidade", "Cidade")
                         .WithMany("Enderecos")
-                        .HasForeignKey("CidadeId")
+                        .HasForeignKey("IdCidade")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

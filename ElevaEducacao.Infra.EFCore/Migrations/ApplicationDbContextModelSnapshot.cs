@@ -130,6 +130,7 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
                         .IsUnicode(false);
 
@@ -150,7 +151,7 @@ namespace ElevaEducacao.Infra.EFCore.Migrations
                     b.Property<DateTime>("Data")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
-                        .HasDefaultValue(new DateTime(2020, 9, 7, 16, 21, 57, 401, DateTimeKind.Local).AddTicks(9725));
+                        .HasDefaultValue(new DateTime(2020, 9, 8, 14, 16, 30, 319, DateTimeKind.Local).AddTicks(4005));
 
                     b.Property<int>("IdEscola")
                         .HasColumnType("int");
